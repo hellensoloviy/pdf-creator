@@ -130,15 +130,16 @@ extension PDFCreatorService {
                 NSAttributedString.Key.paragraphStyle: paragraphStyle,
                 NSAttributedString.Key.font: textFont
             ]
+            
             let tabWidth = (pageRect.width - defaultOffset * 2) / count
             for titleIndex in 0..<5 {
                 var attributedText = NSAttributedString(string: "", attributes: textAttributes)
                 switch titleIndex {
-                case 0: attributedText = NSAttributedString(string: tableDataItems[elementIndex].timestamp, attributes: textAttributes)
-                case 1: attributedText = NSAttributedString(string: tableDataItems[elementIndex].user, attributes: textAttributes)
-                case 2: attributedText = NSAttributedString(string: String(format: "%.2f", tableDataItems[elementIndex].m3), attributes: textAttributes)
-                case 3: attributedText = NSAttributedString(string: tableDataItems[elementIndex].lat, attributes: textAttributes)
-                case 4: attributedText = NSAttributedString(string: tableDataItems[elementIndex].lon, attributes: textAttributes)
+                case 0: attributedText = NSAttributedString(string: String(format: "%.2f", tableDataItems[elementIndex].id), attributes: textAttributes)
+                case 1: attributedText = NSAttributedString(string: tableDataItems[elementIndex].name, attributes: textAttributes)
+                case 2: attributedText = NSAttributedString(string: tableDataItems[elementIndex].phoneNumber, attributes: textAttributes)
+                case 3: attributedText = NSAttributedString(string: tableDataItems[elementIndex].address, attributes: textAttributes)
+                case 4: attributedText = NSAttributedString(string: tableDataItems[elementIndex].dateOfBirth, attributes: textAttributes)
 
                 default:
                     break

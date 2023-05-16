@@ -16,6 +16,7 @@
 		9B06D6922A0D1788001019BF /* PDFService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B06D6912A0D1788001019BF /* PDFService.swift */; };
 		9B06D6942A0D1810001019BF /* Array+Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B06D6932A0D1810001019BF /* Array+Elements.swift */; };
 		9B06D6962A0D1824001019BF /* TableItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B06D6952A0D1824001019BF /* TableItem.swift */; };
+		9B6A0A742A140D6E00AE19B7 /* FilePresenterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B6A0A732A140D6E00AE19B7 /* FilePresenterViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		9B06D6912A0D1788001019BF /* PDFService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFService.swift; sourceTree = "<group>"; };
 		9B06D6932A0D1810001019BF /* Array+Elements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Elements.swift"; sourceTree = "<group>"; };
 		9B06D6952A0D1824001019BF /* TableItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableItem.swift; sourceTree = "<group>"; };
+		9B6A0A732A140D6E00AE19B7 /* FilePresenterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilePresenterViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,9 +64,11 @@
 		9B06D67C2A0D1777001019BF /* pdf-creator */ = {
 			isa = PBXGroup;
 			children = (
+				9B6A0A752A140EF300AE19B7 /* General */,
 				9B06D67D2A0D1777001019BF /* AppDelegate.swift */,
 				9B06D67F2A0D1777001019BF /* SceneDelegate.swift */,
 				9B06D6812A0D1777001019BF /* MainViewController.swift */,
+				9B6A0A732A140D6E00AE19B7 /* FilePresenterViewController.swift */,
 				9B06D6982A0D1842001019BF /* Core */,
 				9B06D6832A0D1777001019BF /* Main.storyboard */,
 				9B06D6862A0D1779001019BF /* Assets.xcassets */,
@@ -90,6 +94,13 @@
 				9B06D6932A0D1810001019BF /* Array+Elements.swift */,
 			);
 			path = Core;
+			sourceTree = "<group>";
+		};
+		9B6A0A752A140EF300AE19B7 /* General */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = General;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -163,6 +174,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9B6A0A742A140D6E00AE19B7 /* FilePresenterViewController.swift in Sources */,
 				9B06D6822A0D1777001019BF /* MainViewController.swift in Sources */,
 				9B06D6962A0D1824001019BF /* TableItem.swift in Sources */,
 				9B06D67E2A0D1777001019BF /* AppDelegate.swift in Sources */,
