@@ -6,14 +6,17 @@
 //
 
 import UIKit
+import PDFKit
 
 class MainViewController: UIViewController {
     private let reusableCellsID = "actions"
 
     @IBOutlet weak var tableView: UITableView!
     
-    private let actions = ["Show generated PDF", "Share generated PDF"]
-    private let subActions = ["Show PDF from base64"] // TODO - 
+    private let actions = ["Generate default PDF", "Show generated PDF", "Share generated PDF"]
+    private let subActions = ["Show PDF from base64"] // TODO -
+    
+    private var pdf: PDFDocument?
     
     // MARK: -
     override func viewDidLoad() {
@@ -32,6 +35,20 @@ class MainViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         
         super.viewWillDisappear(animated)
+    }
+    
+    
+    // MARK: - Private
+    private func generateDefaultPDF() {
+        guard let pdf = PDFServiceBuilder().generateDefaultPDF() else {
+            fatalError("---!!! Unexpected")
+        }
+        self.pdf = pdf
+        
+    }
+    
+    private func shareDocument() {
+        //TODO: - sharing code
     }
     
 
@@ -64,8 +81,14 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         
         switch indexPath.row {
         case 0:
+            self.generateDefaultPDF()
+        case 1:
             let vc = self.storyboard?.instantiateViewController(withIdentifier: FilePresenterViewController.identifier) as! FilePresenterViewController
             self.navigationController?.show(vc, sender: nil)
+            vc.PDFToShow = self.pdf
+        case 2:
+            self.shareDocument()
+            
         default:
             fatalError("To be implemented") // TODO: -
         }

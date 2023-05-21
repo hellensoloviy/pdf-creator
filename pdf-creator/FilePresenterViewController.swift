@@ -18,6 +18,8 @@ class FilePresenterViewController: UIViewController {
     }
 
     @IBOutlet weak var presentationView: PDFView!
+    
+    var PDFToShow: PDFDocument?
         
     // MARK: -
     override func viewDidLoad() {
