@@ -40,15 +40,24 @@ class MainViewController: UIViewController {
     
     // MARK: - Private
     private func generateDefaultPDF() {
+        // TODO: - add loader
+
         guard let pdf = PDFServiceBuilder().generateDefaultPDF() else {
-            fatalError("---!!! Unexpected")
+            fatalError("---!!! Unexpected") // TODO: - error
         }
         self.pdf = pdf
         
     }
     
     private func shareDocument() {
-        //TODO: - sharing code
+        // TODO: - add loader
+        
+        if let pdf = pdf, let data = pdf.dataRepresentation() {
+            let shareController = UIActivityViewController(activityItems: [data], applicationActivities: [])
+            self.present(shareController, animated: true, completion: nil)
+        } else {
+            fatalError("---!!! Unexpected") // TODO: - error
+        }
     }
     
 
