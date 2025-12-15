@@ -19,6 +19,7 @@ class FilePresenterViewController: UIViewController {
 
     @IBOutlet weak var presentationView: PDFView!
     
+    var fileSourceState: State = .fromFile
     var PDFToShow: PDFDocument?
         
     // MARK: -
@@ -26,7 +27,7 @@ class FilePresenterViewController: UIViewController {
         super.viewDidLoad()
         
         self.title = "PDF presentation"
-        
+                
         loadPDFToShow()
 
     }
@@ -44,5 +45,23 @@ class FilePresenterViewController: UIViewController {
     // MARK: -
     private func loadPDFToShow() {
         // TODO: --
+        
+        switch fileSourceState {
+        case .fromFile:
+            guard let PDFToShow else {
+                /// should not happen, but just in case
+                ErrorService().presentDocumentNotFound(on: self)
+                self.navigationController?.popViewController(animated: true)
+                return
+            }
+            presentationView.document = PDFToShow
+            
+        default:
+            return
+        }
+        
+        
+        
+
     }
 }

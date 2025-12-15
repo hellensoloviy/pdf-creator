@@ -60,6 +60,17 @@ class MainViewController: UIViewController {
         }
     }
     
+    private func showDocumentAction() {
+        guard let pdf else {
+            ErrorService().presentDocumentNotFound(on: self)
+            return
+        }
+        
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: FilePresenterViewController.identifier) as! FilePresenterViewController
+        self.navigationController?.show(vc, sender: nil)
+        vc.PDFToShow = pdf
+    }
+    
 
 }
 
@@ -92,9 +103,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         case 0:
             self.generateDefaultPDF()
         case 1:
-            let vc = self.storyboard?.instantiateViewController(withIdentifier: FilePresenterViewController.identifier) as! FilePresenterViewController
-            self.navigationController?.show(vc, sender: nil)
-            vc.PDFToShow = self.pdf
+            self.showDocumentAction()
         case 2:
             self.shareDocument()
             
