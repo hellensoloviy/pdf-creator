@@ -43,7 +43,8 @@ class MainViewController: UIViewController {
         // TODO: - add loader
 
         guard let pdf = PDFServiceBuilder().generateDefaultPDF() else {
-            fatalError("---!!! Unexpected") // TODO: - error
+            ErrorService().presentDocumentGenerationFailed(on: self)
+            return
         }
         self.pdf = pdf
         
@@ -56,7 +57,8 @@ class MainViewController: UIViewController {
             let shareController = UIActivityViewController(activityItems: [data], applicationActivities: [])
             self.present(shareController, animated: true, completion: nil)
         } else {
-            fatalError("---!!! Unexpected") // TODO: - error
+            ErrorService().presentDocumentExportError(on: self)
+            return
         }
     }
     
