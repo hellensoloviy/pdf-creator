@@ -7,6 +7,20 @@
 
 import Foundation
 
+
+protocol PDFItemProtocol {
+    var propertiesCount: Int { get set }
+    var properties: [String] { get set }
+    
+}
+
+struct PDFItem: PDFItemProtocol {
+    
+    var propertiesCount: Int
+    var properties: [String]
+    
+}
+
 /// Example struct for creating model we use in PDF Table
 struct TableItem {
     

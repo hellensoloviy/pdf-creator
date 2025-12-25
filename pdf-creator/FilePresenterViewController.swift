@@ -27,7 +27,9 @@ class FilePresenterViewController: UIViewController {
         super.viewDidLoad()
         
         self.title = "PDF presentation"
-                
+        
+        presentationView.displayMode = .singlePage
+        
         loadPDFToShow()
 
     }

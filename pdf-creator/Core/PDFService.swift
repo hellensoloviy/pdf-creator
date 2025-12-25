@@ -8,6 +8,20 @@
 import Foundation
 import UIKit
 
+
+
+final class PDFTemplateData<T: PDFItemProtocol> {
+    
+    let headers: [String]
+    let data: [T]
+    
+    init(items: [T], headers: [String]) {
+        self.data = items
+        self.headers = headers
+    }
+    
+}
+
 /// Create a PDF with a table inside
 final class PDFCreatorService: NSObject {
     private let defaultOffset: CGFloat = 20
