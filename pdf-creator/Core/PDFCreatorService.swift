@@ -30,4 +30,20 @@ class PDFServiceBuilder {
         return document
     }
     
+    func generateDefaultPDF() -> PDFDocument? {
+        
+        let headers = ["Number" , "Name" , "Phone number" , "Address", "DateOfBirth"]
+                
+        /// Getting a mock data at the moment
+        let items = MockDataGenrator().generateTableItemsForPDF()
+        let template = PDFTemplateData(items: items, headers: headers)
+
+        /// Generate a document from data
+        let pdfCreator = PDFCreatorService(items: template)
+        let data = pdfCreator.create()
+        
+        let document = PDFDocument(data: data)
+        return document
+    }
+    
 }

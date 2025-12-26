@@ -13,7 +13,7 @@ class MainViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     
-    private let actions = ["Generate default PDF", "Show generated PDF", "Share generated PDF"]
+    private let actions = ["Generate default PDF", "Generate specified PDF", "Show generated PDF", "Share generated PDF"]
     private let subActions = ["Show PDF from base64"] // TODO -
     
     private var pdf: PDFDocument?
@@ -40,6 +40,18 @@ class MainViewController: UIViewController {
     
     // MARK: - Private
     private func generateDefaultPDF() {
+        // TODO: - add loader
+
+        guard let pdf = PDFServiceBuilder().generateDefaultPDF() else {
+            ErrorService().presentDocumentGenerationFailed(on: self)
+            return
+        }
+        self.pdf = pdf
+        
+    }
+    
+    //TODO: - Need to add additional screen with value update
+    private func generatePDF() {
         // TODO: - add loader
 
         guard let pdf = PDFServiceBuilder().generatePDF(with: 3) else {
@@ -105,8 +117,10 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         case 0:
             self.generateDefaultPDF()
         case 1:
-            self.showDocumentAction()
+            self.generatePDF()
         case 2:
+            self.showDocumentAction()
+        case 3:
             self.shareDocument()
             
         default:
