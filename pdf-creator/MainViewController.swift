@@ -42,7 +42,7 @@ class MainViewController: UIViewController {
     private func generateDefaultPDF() {
         // TODO: - add loader
 
-        guard let pdf = PDFServiceBuilder().generateDefaultPDF() else {
+        guard let pdf = PDFServiceBuilder().generatePDF(with: 3) else {
             ErrorService().presentDocumentGenerationFailed(on: self)
             return
         }

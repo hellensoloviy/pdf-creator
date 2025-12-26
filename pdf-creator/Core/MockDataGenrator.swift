@@ -9,11 +9,9 @@ import Foundation
 
 struct MockDataGenrator {
     
-    func generateTableItemsForPDF(template: PDFTemplateData<PDFItemProtocol>) -> [PDFItemProtocol] {
-        
-        let headers = ["Number" , "Name" , "Phone number" , "Address", "DateOfBirth"]
-        let rowsCount = headers.count
-        
+    /// Add possibility to generate with needed amount of columns 
+    func generateTableItemsForPDF(headers: [String]) -> [PDFItemProtocol] {
+                
         var data = [String]()
 
         var result = [PDFItemProtocol]()
@@ -32,6 +30,7 @@ struct MockDataGenrator {
     }
     
     
+    /// Old variant with mocck data
     func generateTableItemsForPDF() -> [TableItem] {
         
         let names = ["Michael", "Christopher", "Jessica", "Matthew", "Ashley", "Jennifer", "Joshua", "Amanda", "Daniel", "David", "James", "Robert", "John", "Joseph", "Andrew", "Ryan", "Brandon", "Jason", "Justin", "Sarah", "William"]

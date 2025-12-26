@@ -9,14 +9,21 @@ import Foundation
 import PDFKit
 
 class PDFServiceBuilder {
-    
-    func generateDefaultPDF() -> PDFDocument? {
-            
+
+    func generatePDF(with countToGenerate: Int) -> PDFDocument? {
+        
+        /// Mock headers so that for distinguish and presentability
+        let mockHeaders = ["Number" , "Name" , "Phone number" , "Address", "DateOfBirth", "F/M", "Age", "Experience"]
+        
+        /// Getting needed amount of headers
+        let headers = Array(mockHeaders.dropLast(mockHeaders.count - countToGenerate))
+        
         /// Getting a mock data at the moment
-        let items = MockDataGenrator().generateTableItemsForPDF()
+        let items = MockDataGenrator().generateTableItemsForPDF(headers: headers)
+        let template = PDFTemplateData(items: items, headers: headers)
 
         /// Generate a document from data
-        let pdfCreator = PDFCreatorService(tableDataItems: items)
+        let pdfCreator = PDFCreatorService(items: template)
         let data = pdfCreator.create()
         
         let document = PDFDocument(data: data)

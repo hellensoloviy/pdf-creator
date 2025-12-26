@@ -10,12 +10,12 @@ import UIKit
 
 
 
-final class PDFTemplateData<T: PDFItemProtocol> {
+final class PDFTemplateData {
     
     let headers: [String]
-    let data: [T]
+    let data: [PDFItemProtocol]
     
-    init(items: [T], headers: [String]) {
+    init(items: [PDFItemProtocol], headers: [String]) {
         self.data = items
         self.headers = headers
     }
@@ -26,17 +26,21 @@ final class PDFTemplateData<T: PDFItemProtocol> {
 final class PDFCreatorService: NSObject {
     private let defaultOffset: CGFloat = 20
 
-    private let tableDataItems: [TableItem]
+    private let tableDataItems: [PDFItemProtocol]
     
     /// Headers for our table
-    private let headers: [String] = ["Number" , "Name" , "Phone number" , "Address", "DateOfBirth"]
+    private let headers: [String]
 
+    let sourceData: PDFTemplateData
     
     /// How many colums do we have
-    let count = 5.0
+    let count: CGFloat
     
-    init(tableDataItems: [TableItem]) {
-        self.tableDataItems = tableDataItems
+    init(items: PDFTemplateData) {
+        self.sourceData = items
+        self.headers = items.headers
+        self.tableDataItems = items.data
+        self.count = CGFloat(items.headers.count)
     }
 
     func create() -> Data {
@@ -48,7 +52,7 @@ final class PDFCreatorService: NSObject {
         let renderer = UIGraphicsPDFRenderer(bounds: pageRect, format: UIGraphicsPDFRendererFormat())
 
         let numberOfElementsPerPage = calculateNumberOfElementsPerPage(with: pageRect)
-        let tableDataChunked: [[TableItem]] = tableDataItems.chunkedElements(into: numberOfElementsPerPage)
+        let tableDataChunked: [[PDFItemProtocol]] = tableDataItems.chunkedElements(into: numberOfElementsPerPage)
 
         let data = renderer.pdfData { context in
             for tableDataChunk in tableDataChunked {
@@ -126,7 +130,7 @@ extension PDFCreatorService {
         }
     }
 
-    func drawTableContentInnerBordersAndText(drawContext: CGContext, pageRect: CGRect, tableDataItems: [TableItem]) {
+    func drawTableContentInnerBordersAndText(drawContext: CGContext, pageRect: CGRect, tableDataItems: [PDFItemProtocol]) {
         drawContext.setLineWidth(1.0)
         drawContext.saveGState()
 
@@ -145,19 +149,14 @@ extension PDFCreatorService {
                 NSAttributedString.Key.font: textFont
             ]
             
+            
             let tabWidth = (pageRect.width - defaultOffset * 2) / count
-            for titleIndex in 0..<5 {
+            for titleIndex in 0..<headers.count {
+                let elementDataRows = tableDataItems[elementIndex].properties
+                
                 var attributedText = NSAttributedString(string: "", attributes: textAttributes)
-                switch titleIndex {
-                case 0: attributedText = NSAttributedString(string: String(format: "%.2f", tableDataItems[elementIndex].id), attributes: textAttributes)
-                case 1: attributedText = NSAttributedString(string: tableDataItems[elementIndex].name, attributes: textAttributes)
-                case 2: attributedText = NSAttributedString(string: tableDataItems[elementIndex].phoneNumber, attributes: textAttributes)
-                case 3: attributedText = NSAttributedString(string: tableDataItems[elementIndex].address, attributes: textAttributes)
-                case 4: attributedText = NSAttributedString(string: tableDataItems[elementIndex].dateOfBirth, attributes: textAttributes)
+                attributedText = NSAttributedString(string: elementDataRows[titleIndex], attributes: textAttributes)
 
-                default:
-                    break
-                }
                 let tabX = CGFloat(titleIndex) * tabWidth
                 let textRect = CGRect(x: tabX + defaultOffset,
                                       y: yPosition + defaultOffset,
@@ -165,7 +164,7 @@ extension PDFCreatorService {
                                       height: defaultOffset * count)
                 attributedText.draw(in: textRect)
             }
-
+            
             /// Drawing content's vertical lines
             for verticalLineIndex in 0..<6 {
                 let tabX = CGFloat(verticalLineIndex) * tabWidth
